@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" 
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <title>CoinMarketCap</title>
+</head>
+<body>
+    <div id="coins"></div>
+    <script type="text/javascript">
+      const apikey = {
+        key: 'ace58584-6157-493b-8327-fb2f2b62f82f'
+      }
+
+      fetch('https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?CMC_PRO_API_KEY=' + 
+            apikey.key)
+            .then((response) => {
+              if(!response.ok) throw new Error('Deu pau' + response.status)
+              return response.json()
+            })
+            .then((api) => {
+              let texto = ""
+
+              for(let i = 0; i < 10; i++){
+                texto = texto + `
+
+                <div class="media">
+                  <div class="media-body">
+                    <h5 class="mt-2">${api.data[i].name}</h5>  
+                    <p>${api.data[i].symbol}</p>
+                  <div>
+                </div>
+                `
+
+                document.getElementById("coins").innerHTML = texto
+              }
+            })
+            .catch((error) => {
+              console.error(error.message)
+            })
+
+
+
+    </script>
+</body>
+</html>
